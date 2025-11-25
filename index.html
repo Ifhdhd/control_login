@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Firebase Admin PWA</title>
+  <link rel="manifest" href="manifest.json"/>
+  <script defer src="app.js"></script>
+  <style>
+    body{font-family:Arial;margin:0;padding:20px;background:#f0f0f0}
+    input,button{padding:10px;margin:5px}
+    .card{background:#fff;padding:15px;border-radius:8px}
+    table{width:100%;margin-top:10px;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #ccc}
+  </style>
+</head>
+<body>
+  <h2>Firebase Admin PWA</h2>
+  <div class="card">
+    <input id="deviceId" placeholder="Device Id"/>
+    <input id="username" placeholder="username"/>
+    <input id="password" placeholder="password"/>
+    <input id="expiry" placeholder="expiry YYYY-MM-DD"/>
+    <button onclick="save()">Simpan</button>
+    <button onclick="refreshData()">Refresh</button>
+    <table>
+      <thead><tr><th>Device Id</th><th>username</th><th>password</th><th>expiry</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</body>
+</html>
