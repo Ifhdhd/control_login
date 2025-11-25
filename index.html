@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase Admin PWA</title>
+  <link rel="manifest" href="manifest.json" />
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f0f0f0; margin:0; text-align:center; }
+    .wrap { padding:20px; }
+    input, select { width:85%; padding:10px; margin:10px auto; display:block; font-size:16px; }
+    button { padding:10px 20px; margin:10px; border:none; border-radius:6px; color:white; font-size:16px; }
+    .btn-blue{background:#007bff;} .btn-red{background:#d40038;} .btn-green{background:#009944;}
+    .box{width:90%; height:250px; background:black; margin:20px auto; color:white; overflow:auto;}
+    table{width:95%; margin:auto; font-size:17px; text-align:left;}
+    th,td{padding:8px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Firebase Admin</h1>
+
+    <input id="db_url" value="https://dialog-login-apkc-default-rtdb.firebaseio.com/" />
+    <input id="apikey" placeholder="API Key (optional)" />
+
+    <div style="display:flex; justify-content:center; gap:10px;">
+      <input id="search" placeholder="Cari..." style="width:60%;" />
+      <select id="filter" style="width:25%;"><option value="all">Semua</option></select>
+    </div>
+
+    <button class="btn-blue" onclick="loadData()">Refresh</button>
+    <button class="btn-green" onclick="addUser()">Tambah User</button>
+    <button class="btn-red" onclick="deleteAll()">Hapus Semua Hasil</button>
+
+    <div class="box" id="output"></div>
+
+    <table>
+      <tr>
+        <th>Index</th>
+        <th>device_id</th>
+        <th>key</th>
+        <th>expirydate</th>
+        <th>Allowoffline</th>
+      </tr>
+      <tbody id="table"></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function loadData(){
+      let url = document.getElementById("db_url").value + "/users.json";
+      const res = await fetch(url);
+      const data = await res.json();
+      let i=1;
+      const tbody=document.getElementById("table");
+      tbody.innerHTML="";
+
+      for(let k in data){
+        let d=data[k];
+        tbody.innerHTML += `<tr>
+          <td>${i++}</td>
+          <td>${d.device_id||""}</td>
+          <td>${d.key||""}</td>
+          <td>${d.expirydate||""}</td>
+          <td>${d.allowoffline||""}</td>
+        </tr>`;
+      }
+    }
+
+    async function addUser(){ alert("Tambah User belum diisi — nanti bisa ditambahkan."); }
+    async function deleteAll(){ alert("Hapus semua user belum diisi — bisa ditambahkan."); }
+  </script>
+</body>
+</html>
